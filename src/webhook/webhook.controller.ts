@@ -64,7 +64,7 @@ export class WebhookController {
           userMessage,
           userMessage === 'book service',
         );
-        if (userMessage === 'book service') {
+        if (userMessage.toLowerCase().trim() === 'book service') {
           console.log('inside message:', userMessage);
 
           const user = await this.usersService.getUser(userId);
