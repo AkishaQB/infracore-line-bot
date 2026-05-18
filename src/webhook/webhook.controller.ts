@@ -59,7 +59,7 @@ export class WebhookController {
         typeof event.replyToken === 'string'
       ) {
         const userMessage = event.message.text;
-        if (userMessage === 'book service') {
+        if (userMessage.toLowerCase() === 'book service') {
           const user = await this.usersService.getUser(userId);
 
           await this.sessionsService.startSession(user?.id ?? '');
@@ -115,7 +115,7 @@ export class WebhookController {
         }
         await this.lineService.replyMessage(
           event.replyToken,
-          `InfraCore received: ${userMessage}`,
+          `Thankyou forcontacting us. Please type "book service" to start booking a service appointment.`,
         );
       }
     }
