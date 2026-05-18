@@ -49,7 +49,8 @@ export class WebhookController {
       const profile = await this.lineService.getProfile(userId);
       console.log('User profile:', profile);
       await this.usersService.saveLineUser(profile, userId);
-      const session = await this.sessionsService.getSession(userId);
+      const user = await this.usersService.getUser(userId);
+      const session = await this.sessionsService.getSession(user?.id ?? '');
 
       if (
         event.type === 'message' &&
@@ -70,6 +71,7 @@ export class WebhookController {
 
           return 'OK';
         }
+
         if (session?.step === 'ASK_DEVICE') {
           await this.sessionsService.updateSession(userId, 'ASK_ISSUE', {
             deviceType: event.message?.text,
