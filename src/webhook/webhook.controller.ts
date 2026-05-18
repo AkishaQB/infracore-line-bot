@@ -47,6 +47,7 @@ export class WebhookController {
       return 'OK';
     } else {
       const profile = await this.lineService.getProfile(userId);
+      console.log('User profile:', profile);
       await this.usersService.saveLineUser(profile);
       const session = await this.sessionsService.getSession(userId);
 
