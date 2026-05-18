@@ -7,10 +7,10 @@ import { LineProfile } from '../line/interfaces/line-profile.interface';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async saveLineUser(profile: LineProfile): Promise<User> {
+  async saveLineUser(profile: LineProfile, userId: string): Promise<User> {
     const user: User = await this.prisma.user.upsert({
       where: {
-        lineUserId: profile.userId,
+        lineUserId: userId,
       },
 
       update: {
@@ -20,7 +20,7 @@ export class UsersService {
       },
 
       create: {
-        lineUserId: profile.userId,
+        lineUserId: userId,
         displayName: profile.displayName,
         pictureUrl: profile.pictureUrl,
         statusMessage: profile.statusMessage,

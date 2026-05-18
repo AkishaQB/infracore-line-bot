@@ -42,13 +42,13 @@ export class WebhookController {
     const event = body.events[0];
 
     const userId = event.source?.userId;
-
+    console.log('Received event from userId:', userId);
     if (typeof userId !== 'string') {
       return 'OK';
     } else {
       const profile = await this.lineService.getProfile(userId);
       console.log('User profile:', profile);
-      await this.usersService.saveLineUser(profile);
+      await this.usersService.saveLineUser(profile, userId);
       const session = await this.sessionsService.getSession(userId);
 
       if (
