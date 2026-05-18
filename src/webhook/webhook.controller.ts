@@ -73,9 +73,13 @@ export class WebhookController {
         }
 
         if (session?.step === 'ASK_DEVICE') {
-          await this.sessionsService.updateSession(userId, 'ASK_ISSUE', {
-            deviceType: event.message?.text,
-          });
+          await this.sessionsService.updateSession(
+            user?.id ?? '',
+            'ASK_ISSUE',
+            {
+              deviceType: event.message?.text,
+            },
+          );
 
           await this.lineService.replyMessage(
             event.replyToken,
@@ -94,10 +98,14 @@ export class WebhookController {
             event.message?.text ?? '',
           );
 
-          await this.sessionsService.updateSession(userId, 'COMPLETED', {
-            deviceType,
-            issueDescription: event.message?.text,
-          });
+          await this.sessionsService.updateSession(
+            user?.id ?? '',
+            'COMPLETED',
+            {
+              deviceType,
+              issueDescription: event.message?.text,
+            },
+          );
           await this.lineService.replyMessage(
             event.replyToken,
             'Your service request has been received. Our team will contact you shortly.',
