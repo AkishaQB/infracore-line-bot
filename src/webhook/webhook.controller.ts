@@ -59,7 +59,11 @@ export class WebhookController {
         typeof event.replyToken === 'string'
       ) {
         const userMessage = event.message.text;
-        console.log('User message:', userMessage);
+        console.log(
+          'User message:',
+          userMessage,
+          userMessage === 'book service',
+        );
         if (userMessage === 'book service') {
           console.log('inside message:', userMessage);
 
