@@ -59,7 +59,7 @@ export class WebhookController {
         typeof event.replyToken === 'string'
       ) {
         const userMessage = event.message.text;
-        if (userMessage.toLowerCase() === 'book service') {
+        if (userMessage === 'book service') {
           const user = await this.usersService.getUser(userId);
 
           await this.sessionsService.startSession(user?.id ?? '');
