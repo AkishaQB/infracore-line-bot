@@ -59,7 +59,9 @@ export class WebhookController {
       ) {
         const userMessage = event.message.text;
         if (userMessage === 'book service') {
-          await this.sessionsService.startSession(userId);
+          const user = await this.usersService.getUser(userId);
+
+          await this.sessionsService.startSession(user?.id ?? '');
 
           await this.lineService.replyMessage(
             event.replyToken,
