@@ -8,6 +8,12 @@ import { TicketsService } from '../tickets/tickets.service';
 
 @Module({
   controllers: [WebhookController],
-  providers: [WebhookService, LineService, UsersService, SessionsService, TicketsService],
+  providers: [
+    WebhookService,
+    LineService,
+    UsersService,
+    SessionsService,
+    TicketsService,
+  ],
 })
 export class WebhookModule {}
