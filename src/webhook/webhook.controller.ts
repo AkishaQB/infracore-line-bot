@@ -84,6 +84,27 @@ export class WebhookController {
 
           return 'OK';
         }
+        if (session?.step === 'ASK_ISSUE') {
+          const tempData = session.tempData as Record<string, string>;
+          const deviceType = tempData?.deviceType || 'Unknown Device';
+
+          await this.ticketsService.createTicket(
+            user?.id ?? '',
+            deviceType,
+            event.message?.text ?? '',
+          );
+
+          await this.sessionsService.updateSession(userId, 'COMPLETED', {
+            deviceType,
+            issueDescription: event.message?.text,
+          });
+          await this.lineService.replyMessage(
+            event.replyToken,
+            'Your service request has been received. Our team will contact you shortly.',
+          );
+
+          return 'OK';
+        }
         await this.lineService.replyMessage(
           event.replyToken,
           `InfraCore received: ${userMessage}`,
