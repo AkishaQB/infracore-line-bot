@@ -14,16 +14,16 @@ export class UsersService {
       },
 
       update: {
-        displayName: profile.displayName,
-        pictureUrl: profile.pictureUrl,
-        statusMessage: profile.statusMessage,
+        displayName: profile.displayName ?? null,
+        pictureUrl: profile.pictureUrl ?? null,
+        statusMessage: profile.statusMessage ?? null,
       },
 
       create: {
         lineUserId: userId,
-        displayName: profile.displayName,
-        pictureUrl: profile.pictureUrl,
-        statusMessage: profile.statusMessage,
+        displayName: profile.displayName ?? null,
+        pictureUrl: profile.pictureUrl ?? null,
+        statusMessage: profile.statusMessage ?? null,
       },
     });
     return user;
