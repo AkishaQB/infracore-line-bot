@@ -20,4 +20,11 @@ export class TicketsService {
     });
     return ticket;
   }
+
+  async getTicketsByUserId(userId: string): Promise<Ticket[]> {
+    return this.prisma.ticket.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }

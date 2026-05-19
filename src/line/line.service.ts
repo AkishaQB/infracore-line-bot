@@ -4,25 +4,25 @@ import { LineProfile } from './interfaces/line-profile.interface';
 
 @Injectable()
 export class LineService {
-  async replyMessage(replyToken: string, text: string) {
-    await axios.post(
-      'https://api.line.me/v2/bot/message/reply',
-      {
-        replyToken,
-        messages: [
-          {
-            type: 'text',
-            text,
-          },
-        ],
+  async replyMessage(replyToken: string, text: string | Record<string, any>) {
+    const body =
+      typeof text === 'string'
+        ? {
+            replyToken,
+            messages: [
+              {
+                type: 'text',
+                text,
+              },
+            ],
+          }
+        : text;
+    await axios.post('https://api.line.me/v2/bot/message/reply', body, {
+      headers: {
+        Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
       },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    );
+    });
   }
 
   async getProfile(userId: string): Promise<LineProfile> {
